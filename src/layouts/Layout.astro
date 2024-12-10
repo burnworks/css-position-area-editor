@@ -1,22 +1,74 @@
+---
+import "@fontsource-variable/noto-sans-jp";
+
+const title: string = "CSS position-area Editor";
+const description: string = "CSS の position-area プロパティに指定可能な値をセレクトメニューから選択することで、実際にアンカー要素に対して、配置ボックスがどのように配置されるかを確認できるツール";
+const url: string = "https://github.com/burnworks/css-position-area-editor";
+const ogimage: string = "https://github.com/burnworks/css-position-area-editor/static/img/ogp-image.png";
+const ogtype: string = "WebSite";
+
+import { formatRFC3339 } from "date-fns";
+const modifiedDate: string = formatRFC3339(new Date());
+
+const schema = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": ogtype,
+	url: url,
+	name: title,
+	description: description,
+	headline: title,
+	datePublished: "2024-12-10T21:18:00+09:00",
+	dateModified: modifiedDate,
+	image: {
+		"@type": "ImageObject",
+		url: ogimage,
+		width: 1200,
+		height: 630,
+	},
+	author: {
+		"@type": "Person",
+		name: "Yoshiki Kato",
+	},
+	publisher: {
+		"@type": "Organization",
+		name: "Burnworks Inc.",
+		logo: {
+			"@type": "ImageObject",
+			url: "https://burnworks.com/static/img/burnworks_logo.png",
+			width: 225,
+			height: 60,
+		},
+	},
+});
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="ja" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
+		<title>CSS position-area Editor</title>
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+
+		<link rel="icon" type="image/x-icon" href="/static/img/favicon/favicon.ico" />
+		<link rel="icon" type="image/png" href="/static/img/favicon/icon-192x192.png" />
+		<link rel="apple-touch-icon" type="image/png" href="/static/img/favicon/apple-touch-icon-180x180.png" />
+
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:site_name" content={title} />
+		<meta property="og:url" content={url} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogimage} />
+		<meta property="og:image:secure_url" content={ogimage} />
+		<meta property="og:type" content={ogtype} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@burnworksInc" />
+		<meta name="twitter:creator" content="@burnworksInc" />
+
+		<script type="application/ld+json" set:html={schema} />
 	</head>
-	<body>
+	<body class="font-body">
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

@@ -1,11 +1,288 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import BrowserSupport from "../components/BrowserSupport.astro";
+import Controls from "../components/Controls.astro";
+import Dialog from "../components/Dialog.astro";
+import Information from "../components/Information.astro";
+import MyBook from "../components/MyBook.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
-	<Welcome />
+    <Header title="CSS position-area Editor" />
+
+    <main class="p-4 lg:p-8">
+        <div class="space-y-8">
+            <BrowserSupport />
+            <Controls />
+
+            <div class="grid-area">
+                <div class="anchor-wrap">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div class="anchor">
+                        <div>
+                            <span>Anchor</span>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div id="position" class="position">Item</div>
+            </div>
+        </div>
+        <Information />
+    </main>
+
+    <MyBook />
+    <Footer />
+    <Dialog />
+
+    <script>
+        const selectVal1 = document.getElementById("select-valuse-01") as HTMLSelectElement;
+        const selectVal2 = document.getElementById("select-valuse-02") as HTMLSelectElement;
+        const submitBtn = document.getElementById("submit") as HTMLButtonElement;
+        const copyCssBtn = document.getElementById("copy-css") as HTMLButtonElement;
+        const positionEl = document.getElementById("position") as HTMLDivElement;
+
+        const messageDialog = document.getElementById("message-dialog") as HTMLDialogElement;
+        const dialogMessage = document.getElementById("dialog-message") as HTMLParagraphElement;
+        const dialogTitle = document.getElementById("dialog-title") as HTMLParagraphElement;
+        const closeDialogBtn = document.getElementById("close-dialog") as HTMLButtonElement;
+
+        const mapping: { [key: string]: string } = {
+            horizontal: "vertical",
+            "block-range": "inline-range",
+            "self-block-range": "self-inline-range",
+            "start-v1": "start-v2",
+            "self-start-v1": "self-start-v2",
+        };
+
+        const val2OptGroups = Array.from(selectVal2.querySelectorAll("optgroup")) as HTMLOptGroupElement[];
+
+        const disableAllVal2Groups = () => {
+            val2OptGroups.forEach((g) => {
+                g.disabled = true;
+            });
+        };
+
+        const enableMatchedVal2Group = (groupId: string) => {
+            disableAllVal2Groups();
+            const matched = selectVal2.querySelector(`#${groupId}`) as HTMLOptGroupElement | null;
+            if (matched) {
+                matched.disabled = false;
+            }
+        };
+
+        const getSelectedGroupId = (selectEl: HTMLSelectElement): string | null => {
+            const opt = selectEl.selectedOptions[0];
+            if (!opt) return null;
+            const parentGroup = opt.parentElement;
+            if (parentGroup && parentGroup.tagName.toLowerCase() === "optgroup") {
+                return parentGroup.id;
+            }
+            return null;
+        };
+
+        selectVal1.addEventListener("change", () => {
+            selectVal2.value = "";
+            disableAllVal2Groups();
+
+            const groupId = getSelectedGroupId(selectVal1);
+            if (!groupId || !mapping[groupId]) {
+                return;
+            }
+
+            const mappedId = mapping[groupId];
+            enableMatchedVal2Group(mappedId);
+        });
+
+        submitBtn.addEventListener("click", () => {
+            const v1 = selectVal1.value.trim();
+            const v2 = selectVal2.value.trim();
+
+            let cssText = "";
+
+            if (!v1 && !v2) {
+                cssText = "";
+            } else if (v1 && !v2) {
+                cssText = `position-area: ${v1};`;
+            } else if (!v1 && v2) {
+                cssText = `position-area: ${v2};`;
+            } else {
+                cssText = `position-area: ${v1} ${v2};`;
+            }
+
+            positionEl.setAttribute("data-css", cssText);
+            positionEl.setAttribute("style", cssText);
+        });
+
+        const showDialog = (title: string, message: string, error?: boolean) => {
+            dialogTitle.textContent = title;
+            dialogMessage.textContent = message;
+
+            const errorEl = document.getElementById("error");
+            const successEl = document.getElementById("successful");
+
+            if (errorEl && successEl) {
+                if (error === true) {
+                    errorEl.classList.remove("hidden");
+                    errorEl.classList.add("block");
+                    successEl.classList.remove("block");
+                    successEl.classList.add("hidden");
+                } else {
+                    errorEl.classList.remove("block");
+                    errorEl.classList.add("hidden");
+                    successEl.classList.remove("hidden");
+                    successEl.classList.add("block");
+                }
+            }
+            messageDialog.showModal();
+        };
+
+        closeDialogBtn.addEventListener("click", () => {
+            messageDialog.close();
+        });
+
+        copyCssBtn.addEventListener("click", async () => {
+            const cssText = positionEl.getAttribute("data-css") || "";
+            if (cssText) {
+                try {
+                    await navigator.clipboard.writeText(cssText);
+                    showDialog(`Successful`, `CSSをコピーしました: ${cssText}`);
+                } catch (err) {
+                    showDialog("Error", "クリップボードへのコピーに失敗しました。", true);
+                }
+            } else {
+                showDialog("Error", "コピー対象となるCSSが適用されていません。", true);
+            }
+        });
+
+        disableAllVal2Groups();
+    </script>
 </Layout>
+<style is:global>
+    body {
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    footer {
+        margin-top: auto;
+    }
+
+    optgroup {
+        display: block;
+        padding: 0.5rem 0;
+        font-style: normal;
+
+        &:disabled {
+            display: none;
+        }
+    }
+
+    option {
+        padding: 0.25rem 0;
+    }
+
+    dialog::backdrop {
+        background-color: rgb(17 24 39 / 0.75);
+    }
+
+    .browser-support-alerts {
+        display: none;
+    }
+
+    @supports not (position-area: none) {
+        .browser-support-alerts {
+            display: block;
+        }
+    }
+
+    .anchor {
+        anchor-name: --anchor;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #dcfce7;
+            border-radius: 1rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        > div > span {
+            padding: 1rem 0.5rem;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+    }
+
+    .anchor-wrap {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        width: 100%;
+        max-width: 64rem;
+        aspect-ratio: 1/1;
+        background: #f9fafb;
+        border-radius: 1rem;
+
+        > div {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        > div:nth-child(3n + 2) {
+            border-left: 2px dashed #9ca3af;
+            border-right: 2px dashed #9ca3af;
+        }
+
+        > div:nth-child(4),
+        > div:nth-child(5),
+        > div:nth-child(6) {
+            border-top: 2px dashed #9ca3af;
+            border-bottom: 2px dashed #9ca3af;
+        }
+    }
+
+    .position {
+        position-anchor: --anchor;
+        position: absolute;
+        padding: 0.25rem 1rem;
+        background: #fef2f2;
+        border: 1px solid #ef4444;
+        border-radius: 0.25rem;
+        text-align: center;
+        font-weight: bold;
+        font-size: 0.875rem;
+    }
+
+    @media (min-width: 768px) {
+        .anchor {
+            > div > span {
+                padding: 1rem 0.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        .position {
+            padding: 1rem 0.5rem;
+            font-size: 1rem;
+            min-width: 7rem;
+        }
+    }
+</style>

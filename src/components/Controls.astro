@@ -1,0 +1,167 @@
+<div class="flex gap-2.5 flex-col md:flex-row md:gap-6 md:items-center">
+    <div class="order-last md:ml-auto">
+        <a href="#information" class="text-sm inline-flex items-center gap-2 underline hover:no-underline md:gap-0 md:no-underline">
+            <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"
+                    ></path>
+                </svg>
+            </span>
+            <span class="md:sr-only">このツールについて詳しい説明はこちら</span>
+        </a>
+    </div>
+    <div class="flex items-center gap-2">
+        <label for="select-valuse-01">値1</label>
+        <div class="grid grid-cols-1">
+            <select
+                id="select-valuse-01"
+                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+            >
+                <option value="">指定なし</option>
+                <optgroup label="水平方向キーワード" id="horizontal">
+                    <option value="">指定なし</option>
+                    <option value="left">left</option>
+                    <option value="center">center</option>
+                    <option value="right">right</option>
+                    <option value="span-left">span-left</option>
+                    <option value="span-right">span-right</option>
+                    <option value="x-start">x-start</option>
+                    <option value="x-end">x-end</option>
+                    <option value="span-x-start">span-x-start</option>
+                    <option value="span-x-end">span-x-end</option>
+                    <option value="x-self-start">x-self-start</option>
+                    <option value="x-self-end">x-self-end</option>
+                    <option value="span-x-self-start">span-x-self-start</option>
+                    <option value="span-x-self-end">span-x-self-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+                <optgroup label="ブロック方向キーワード" id="block-range">
+                    <option value="">指定なし</option>
+                    <option value="block-start">block-start</option>
+                    <option value="center">center</option>
+                    <option value="block-end">block-end</option>
+                    <option value="span-block-start">span-block-start</option>
+                    <option value="span-block-end">span-block-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+                <optgroup label="要素自身のブロック方向キーワード" id="self-block-range">
+                    <option value="">指定なし</option>
+                    <option value="self-block-start">self-block-start</option>
+                    <option value="center">center</option>
+                    <option value="self-block-end">self-block-end</option>
+                    <option value="span-self-block-start">span-self-block-start</option>
+                    <option value="span-self-block-end">span-self-block-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+                <optgroup label="行・列方向の位置キーワード" id="start-v1">
+                    <option value="start">start</option>
+                    <option value="center">center</option>
+                    <option value="end">end</option>
+                    <option value="span-start">span-start</option>
+                    <option value="span-end">span-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+                <optgroup label="要素自身基準の位置キーワード" id="self-start-v1">
+                    <option value="self-start">self-start</option>
+                    <option value="center">center</option>
+                    <option value="self-end">self-end</option>
+                    <option value="span-self-start">span-self-start</option>
+                    <option value="span-self-end">span-self-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+            </select>
+            <svg
+                class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+            >
+                <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"
+                ></path>
+            </svg>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+        <label for="select-valuse-02">値2</label>
+        <div class="grid grid-cols-1">
+            <select
+                id="select-valuse-02"
+                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+            >
+                <option value="">指定なし</option>
+                <optgroup label="垂直方向キーワード" id="vertical">
+                    <option value="top">top</option>
+                    <option value="center">center</option>
+                    <option value="bottom">bottom</option>
+                    <option value="span-top">span-top</option>
+                    <option value="span-bottom">span-bottom</option>
+                    <option value="y-start">y-start</option>
+                    <option value="y-end">y-end</option>
+                    <option value="span-y-start">span-y-start</option>
+                    <option value="span-y-end">span-y-end</option>
+                    <option value="y-self-start">y-self-start</option>
+                    <option value="y-self-end">y-self-end</option>
+                    <option value="span-y-self-start">span-y-self-start</option>
+                    <option value="span-y-self-end">span-y-self-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+                <optgroup label="インライン方向キーワード" id="inline-range">
+                    <option value="inline-start">inline-start</option>
+                    <option value="center">center</option>
+                    <option value="inline-end">inline-end</option>
+                    <option value="span-inline-start">span-inline-start</option>
+                    <option value="span-inline-end">span-inline-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+                <optgroup label="要素自身のインライン方向キーワード" id="self-inline-range">
+                    <option value="self-inline-start">self-inline-start</option>
+                    <option value="center">center</option>
+                    <option value="self-inline-end">self-inline-end</option>
+                    <option value="span-self-inline-start">span-self-inline-start</option>
+                    <option value="span-self-inline-end">span-self-inline-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+                <optgroup label="行・列方向の位置キーワード" id="start-v2">
+                    <option value="start">start</option>
+                    <option value="center">center</option>
+                    <option value="end">end</option>
+                    <option value="span-start">span-start</option>
+                    <option value="span-end">span-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+                <optgroup label="要素自身基準の位置キーワード" id="self-start-v2">
+                    <option value="self-start">self-start</option>
+                    <option value="center">center</option>
+                    <option value="self-end">self-end</option>
+                    <option value="span-self-start">span-self-start</option>
+                    <option value="span-self-end">span-self-end</option>
+                    <option value="span-all">span-all</option>
+                </optgroup>
+            </select>
+            <svg
+                class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+            >
+                <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"
+                ></path>
+            </svg>
+        </div>
+    </div>
+
+    <button
+        id="submit"
+        type="button"
+        class="rounded-full bg-indigo-600 px-6 py-1.5 text-sm font-bold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+    >
+        適用
+    </button>
+    <button id="copy-css" type="button" class="rounded-full bg-white px-3 py-1.5 text-sm font-bold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"> CSS をコピー </button>
+</div>
